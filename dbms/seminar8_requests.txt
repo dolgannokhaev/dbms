@@ -1,0 +1,108 @@
+/*
+1
+SELECT FirstName, LastName 
+FROM CUSTOMERS 
+WHERE City = "Prague"
+*/
+
+/*
+2
+SELECT FirstName, LastName 
+FROM Customers 
+WHERE FirstName like "M%" and FirstName like "%ch%"
+*/
+
+/*
+3
+SELECT BYTES / (1024 * 1024) as "MEGABYTES"
+FROM tracks
+*/
+
+/*
+4
+SELECT FirstName, LastName
+FROM employees
+WHERE strftime("%Y", hiredate) = "2002" and City = "Calgary"
+*/
+
+/*
+5
+SELECT FirstName, LastName
+FROM employees
+WHERE (hiredate - birthdate) >= 40
+*/
+
+/*
+6
+SELECT FirstName, LastName
+FROM customers
+WHERE ifnull(Fax, False) and Country = "USA"
+*/
+
+/*
+7
+SELECT ShipCity as "City"
+FROM sales
+WHERE (strftime("%m", salesdate) == "08" or strftime("%m", salesdate) == "09") and ShipCountry = "Canada"
+*/
+
+/*
+8
+SELECT Email
+FROM customers 
+WHERE Email like "%gmail.com"
+*/
+
+/*
+9
+SELECT FirstName, LastName
+FROM employees
+WHERE DATE("NOW") - hiredate >= 18
+*/
+
+/*
+10
+SELECT Title
+FROM employees
+ORDER BY Title
+*/
+
+/*
+11
+SELECT FirstName, LastName, strftime("%Y", DATE("now")) - Age as BirthYear
+FROM customers
+ORDER BY FirstName, LastName, BirthYear;
+*/
+
+/*
+12
+SELECT min(Milliseconds) / 1000 AS Seconds
+FROM tracks
+*/
+
+/*
+13
+Select Name, min(Milliseconds) / 1000 AS Seconds
+FROM tracks
+*/
+
+/*
+14
+SELECT Country, avg(Age)
+FROM customers
+GROUP BY Country
+*/
+
+/*
+15
+SELECT LastName
+FROM employees
+WHERE strftime("%m", hiredate) = "10"
+*/
+
+/*
+16
+SELECT LastName
+FROM employees
+ORDER BY hiredate LIMIT 1
+*/
