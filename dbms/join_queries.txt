@@ -1,0 +1,82 @@
+-- 1
+/* 
+SELECT SUM(UnitPrice * Quantity) AS TotalSumInUsa
+FROM sales JOIN sales_items ON sales.SalesId = sales_items.SalesId
+WHERE ShipCountry = 'USA' AND (SalesDate >= DATE('2012-01-01') AND SalesDate < DATE('2012-04-01'))
+*/
+
+/*
+SELECT SUM(IFNULL((SELECT SUM(UnitPrice * Quantity)
+   FROM sales_items WHERE sales_items.SalesId = sales.SalesId
+   AND (SalesDate >= DATE('2012-01-01') AND SalesDate < DATE('2012-04-01'))), 0)) As TotalSumInUsa
+FROM sales WHERE ShipCountry = 'USA'
+*/
+
+-- 2
+/*
+SELECT DISTINCT FirstName
+FROM customers
+WHERE FirstName NOT IN (SELECT FirstName FROM employees)
+*/
+
+/*
+SELECT FirstName FROM customers
+EXCEPT
+SELECT FirstName from employees
+*/
+
+/*
+SELECT DISTINCT customers.FirstName
+FROM customers JOIN employees on customers.SupportRepId = employees.EmployeeId
+WHERE customers.FirstName != employees.FirstName
+*/
+
+/*
+3
+Запрос с WHERE вернет меньше строк т.к. строки с невыполненным условием не будут выведены, а в запросе без WHERE все строки будут учтены
+*/
+--4
+/*
+SELECT albums.Title, COUNT(tracks.TrackId) AS Count
+FROM albums JOIN main.tracks on albums.AlbumId = tracks.AlbumId
+GROUP BY albums.Title
+*/
+
+/*
+SELECT albums.Title, (SELECT COUNT(*) FROM tracks WHERE tracks.AlbumId = albums.AlbumID) as Count
+from albums
+*/
+
+--5
+/*
+SELECT DISTINCT customers.LastName, customers.FirstName
+FROM customers JOIN sales on customers.CustomerId = sales.CustomerId
+WHERE ShipCity = 'Berlin' AND customers.Country = 'Germany' AND STRFTIME('%Y', SalesDate) = '2009'
+*/
+
+--6
+/*
+SELECT customers.LastName, COUNT(customers.CustomerId) AS SalesCount
+FROM customers JOIN sales on customers.CustomerId = sales.CustomerId
+Where SalesCount > 30
+*/
+
+/*
+SELECT customers.LastName, (SELECT COUNT(sales.CustomerId) FROM sales WHERE sales.CustomerId = customers.CustomerId) AS SalesCount
+FROM customers
+WHERE SalesCount > 30
+*/
+
+--7
+/*
+SELECT genres.Name, (SELECT AVG(tracks.UnitPrice) FROM tracks WHERE tracks.GenreId = genres.GenreId) AS AvgPrice
+FROM genres
+WHERE AvgPrice is NOT NULL
+*/
+
+--8
+/*
+SELECT genres.Name
+FROM genres
+WHERE (SELECT AVG(tracks.UnitPrice) FROM tracks WHERE tracks.GenreId = genres.GenreId) > 1
+*/
