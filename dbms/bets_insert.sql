@@ -1,0 +1,12 @@
+CREATE TABLE users(
+	user_id TEXT PRIMARY KEY NOT NULL UNIQUE,
+	email TEXT NOT NULL UNIQUE,
+    geo TEXT NOT NULL
+);
+
+CREATE TABLE log(
+	time TIME NOT NULL,
+	user_id TEXT NOT NULL REFERENCES users(user_id),
+	bet INTEGER,
+    win INTEGER
+);

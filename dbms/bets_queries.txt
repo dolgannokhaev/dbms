@@ -1,0 +1,19 @@
+--b
+--для всех игроков:
+/*
+SELECT (sum(win)/sum(bet) * 100) as winrate
+FROM log
+*/
+
+--для каждого отдельного:
+/*
+SELECT user_id, (sum(win)/sum(bet) * 100) as balance
+FROM log GROUP by user_id
+*/
+
+--c
+
+/*
+SELECT user_id, (sum(win) - sum(bet)) as balance
+FROM log GROUP by user_id
+*/
